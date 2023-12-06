@@ -11,8 +11,26 @@ keywords = ["miden", "stark", "virtual-machine", "zkp"]
 edition = "2021"
 rust-version = "1.73"
 
+[[bin]]
+name = "miden"
+path = "src/main.rs"
+bench = false
+doctest = false
+required-features = ["executable"]
+
 [lib]
-crate-type = ["cdylib", "rlib"]
+name = "miden"
+path = "src/lib.rs"
+bench = false
+doctest = false
+
+[[bench]]
+name = "program_compilation"
+harness = false
+
+[[bench]]
+name = "program_execution"
+harness = false
 
 [[test]]
 name = "miden"
@@ -20,31 +38,26 @@ path = "tests/integration/main.rs"
 
 [features]
 concurrent = ["prover/concurrent", "std"]
-default = ["std", "serde_json/std"]
-executable = ["std", "hex/std", "serde/std"]
+default = ["std"]
+executable = ["dep:env_logger", "dep:hex", "hex?/std", "std", "dep:serde", "serde?/std", "dep:serde_derive", "dep:serde_json", "serde_json?/std", "dep:clap", "dep:rustyline"]
 metal = ["prover/metal", "std"]
-std = ["assembly/std", "log/std", "processor/std", "prover/std", "verifier/std", "serde_json/std", "clap/std"]
+std = ["assembly/std", "log/std", "processor/std", "prover/std", "verifier/std"]
 sve = ["processor/sve", "prover/sve", "std"]
 
 [dependencies]
 assembly = { package = "miden-assembly", path = "../assembly", version = "0.7", default-features = false }
 clap = { version = "4.4", features = ["derive"], optional = true }
 env_logger = { version = "0.10", default-features = false, optional = true }
-hex = { version = "0.4", optional = false }
+hex = { version = "0.4", optional = true }
 log = { version = "0.4", default-features = false, optional = true }
 processor = { package = "miden-processor", path = "../processor", version = "0.7", default-features = false }
 prover = { package = "miden-prover", path = "../prover", version = "0.7", default-features = false }
 rustyline = { version = "12.0", default-features = false, optional = true }
-
-serde = { version = "1.0.117", default-features = false, features = ["derive"] }
-serde_derive = {version = "1.0.117", default-features = false, optional = true}
-serde_json = {version = "1.0.59", features = ["std"], default-features = false, optional = true }
+serde = {version = "1.0", optional = true }
+serde_derive = {version = "1.0", optional = true }
+serde_json = {version = "1.0", optional = true }
 stdlib = { package = "miden-stdlib", path = "../stdlib", version = "0.6", default-features = false }
 verifier = { package = "miden-verifier", path = "../verifier", version = "0.7", default-features = false }
-wasm-bindgen = "0.2.83"
-wasm-bindgen-test = "0.3.24"
-console_error_panic_hook = "0.1.6"
-vm-core = { package = "miden-core", path = "../core", version = "0.7", default-features = false }
 
 [dev-dependencies]
 assert_cmd = "2.0"
@@ -55,16 +68,3 @@ predicates = "3.0"
 test-utils = { package = "miden-test-utils", path = "../test-utils" }
 vm-core = { package = "miden-core", path = "../core", version = "0.7" }
 winter-fri = { package = "winter-fri", path = "../winterfell/fri", version = "0.6" }
-
-[target.'cfg(target_arch = "wasm32")']
-rustflags = ["-C", "linker=llvm-lld"]
-
-[package.metadata.wasm-pack.profile.release]
-# `wasm-opt` has some problems on linux, see
-# https://github.com/rustwasm/wasm-pack/issues/781 etc.
-wasm-opt = false
-
-
-[profile.release]
-lto = true
-opt-level = 's'

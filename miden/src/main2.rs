@@ -1,6 +1,6 @@
 use clap::Parser;
 use core::fmt;
-use miden::{AssemblyError, ExecutionError};
+use super::{AssemblyError, ExecutionError};
 
 mod cli;
 mod examples;
