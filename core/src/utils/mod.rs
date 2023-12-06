@@ -10,11 +10,11 @@ use winter_utils::{collections::Vec, string::String};
 // ================================================================================================
 
 pub use winter_utils::{
-    group_slice_elements, group_vector_elements, string, uninit_vector, Box, ByteReader,
+    group_slice_elements, group_vector_elements, string, uninit_vector, ByteReader,
     ByteWriter, Deserializable, DeserializationError, Serializable, SliceReader,
 };
 
-pub use miden_crypto::utils::collections;
+pub use miden_crypto::utils::{collections, Box};
 
 pub mod math {
     pub use math::{batch_inversion, log2};

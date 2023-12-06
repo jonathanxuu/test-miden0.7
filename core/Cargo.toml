@@ -21,11 +21,12 @@ std = ["miden-crypto/std", "math/std", "winter-utils/std"]
 sve = ["miden-crypto/sve", "std"]
 
 [dependencies]
-math = { package = "winter-math", version = "0.6", default-features = false }
-miden-crypto = { package = "miden-crypto", version = "0.7", default-features = false }
-winter-crypto = { package = "winter-crypto", version = "0.6", default-features = false }
-winter-utils = { package = "winter-utils", version = "0.6", default-features = false }
+math = { package = "winter-math", path = "../winterfell/math", version = "0.6", default-features = false }
+miden-crypto = { package = "miden-crypto", path = "../crypto", version = "0.7", default-features = false }
+winter-crypto = { package = "winter-crypto", path = "../winterfell/crypto", version = "0.6", default-features = false }
+winter-utils = { package = "winter-utils", path = "../winterfell/utils/core", version = "0.6", default-features = false }
+serde = { version = "1.0.117", default-features = false, features = ["derive"] }
 
 [dev-dependencies]
 proptest = "1.1"
-rand_utils = { version = "0.6", package = "winter-rand-utils" }
+rand_utils = { version = "0.6",path = "../winterfell/utils/rand", package = "winter-rand-utils" }

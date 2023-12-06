@@ -4,6 +4,7 @@ use vm_core::{
     utils::collections::Vec,
 };
 use winter_air::proof::StarkProof;
+use serde::{Deserialize, Serialize};
 
 // EXECUTION PROOF
 // ================================================================================================
@@ -12,7 +13,7 @@ use winter_air::proof::StarkProof;
 ///
 /// The proof encodes the proof itself as well as STARK protocol parameters used to generate the
 /// proof. However, the proof does not contain public inputs needed to verify the proof.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ExecutionProof {
     pub proof: StarkProof,
     pub hash_fn: HashFunction,
@@ -85,7 +86,7 @@ impl ExecutionProof {
 // ================================================================================================
 
 /// A hash function used during STARK proof generation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[repr(u8)]
 pub enum HashFunction {
     /// BLAKE3 hash function with 192-bit output.

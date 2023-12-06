@@ -5,6 +5,7 @@ use super::{
 };
 use crate::ProcessState;
 use vm_core::SignatureKind;
+use serde::{Deserialize, Serialize};
 
 // TYPE ALIASES
 // ================================================================================================
@@ -20,7 +21,7 @@ type RecordingAdviceMap = RecordingMap<[u8; 32], Vec<Felt>>;
 
 /// An in-memory [AdviceProvider] implementation which serves as the base for advice providers
 /// bundles with Miden VM.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct BaseAdviceProvider<M, S>
 where
     M: KvMap<[u8; 32], Vec<Felt>>,
@@ -238,7 +239,7 @@ where
 // ================================================================================================
 
 /// An in-memory `[AdviceProvider]` implementation which uses [BTreeMap]s as its backing storage.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct MemAdviceProvider {
     provider: BaseAdviceProvider<SimpleAdviceMap, SimpleMerkleMap>,
 }

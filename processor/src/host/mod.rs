@@ -6,6 +6,7 @@ pub(super) mod advice;
 use advice::{AdviceExtractor, AdviceProvider};
 
 mod debug;
+use serde::{Deserialize, Serialize};
 
 // HOST TRAIT
 // ================================================================================================
@@ -193,6 +194,7 @@ impl From<HostResponse> for Felt {
 // ================================================================================================
 
 /// TODO: add comments
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DefaultHost<A> {
     adv_provider: A,
 }

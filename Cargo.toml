@@ -8,7 +8,7 @@ members = [
   "prover",
   "stdlib",
   "test-utils",
-  "verifier"
+  "verifier",
 ]
 resolver = "2"
 

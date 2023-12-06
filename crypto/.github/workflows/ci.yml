@@ -1,0 +1,101 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, repoened, synchronize]
+
+jobs:
+  build:
+    name: Build ${{matrix.toolchain}} on ${{matrix.os}} with ${{matrix.args}}
+    runs-on: ${{matrix.os}}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [stable, nightly]
+        os: [ubuntu]
+        target: [wasm32-unknown-unknown]
+        args: [--no-default-features --target wasm32-unknown-unknown]
+    steps:
+      - uses: actions/checkout@main
+        with:
+          submodules: recursive
+      - name: Install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{matrix.toolchain}}
+          override: true
+      - run: rustup target add ${{matrix.target}}
+      - name: Test
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: ${{matrix.args}}
+
+  test:
+    name: Test ${{matrix.toolchain}} on ${{matrix.os}} with ${{matrix.features}}
+    runs-on: ${{matrix.os}}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [stable, nightly]
+        os: [ubuntu]
+        features: ["--features default,std,serde", --no-default-features]
+    steps:
+      - uses: actions/checkout@main
+        with:
+          submodules: recursive
+      - name: Install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{matrix.toolchain}}
+          override: true
+      - name: Test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: ${{matrix.features}}
+
+  clippy:
+    name: Clippy with ${{matrix.features}}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        features: ["--features default,std,serde", --no-default-features]
+    steps:
+      - uses: actions/checkout@main
+        with:
+          submodules: recursive
+      - name: Install minimal nightly with clippy
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly
+          components: clippy
+          override: true
+      - name: Clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --all ${{matrix.features}} -- -D clippy::all -D warnings
+
+  rustfmt:
+    name: rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Install minimal stable with rustfmt
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          components: rustfmt
+          override: true
+
+      - name: rustfmt
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check

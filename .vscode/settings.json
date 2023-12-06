@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "randombytes.h": "c",
+        "rpo.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
+}
