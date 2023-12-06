@@ -9,7 +9,7 @@ repository = "https://github.com/0xPolygonMiden/miden-vm"
 categories = ["cryptography", "mathematics"]
 keywords = ["miden", "program", "stdlib"]
 edition = "2021"
-rust-version = "1.73"
+rust-version = "1.70"
 
 [lib]
 bench = false
