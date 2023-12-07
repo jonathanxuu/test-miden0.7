@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>midem test demo </title>
+  </head>
+  <body>
+    <script type="module">
+      import init, {generate_program_hash, init_panic_hook} from "./pkg/miden_vm.js";
+       async function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+      init().then( m => {
+        let t1 = new Date() 
+        init_panic_hook()
+
+        let program = `
+    begin
+        add
+    end`;
+
+        var t = new Date();
+        // the first array is public input, the sec is secret input
+        // let output = execute_zk_program(program, "","6833784672397792804,1738843643968560814,14461430620336761827,12110009229538442525,19,1,0,0,0,0,0,0,11163774851835570377,9362862845627922325,13487000498173000578,8882224816854508067,14575308179982110358,17433735800768262380,8768951732059513786,4790773657737358814,7542115670608157565,8444373719912261442,14347248385715939903,2960226829132908104,129,156,1,0,0,0,0,0,7077620387898955118,679287600474868924,15132917276352316628,3931973049508962096,5107192246664894678,2229368643187067388,9712480462957145443,1739771992166299667,7060296349883902801,4165408376239840973,2516309578450629202,5759828452952020339")
+
+        // var tt = new Date();
+        // console.log(output)
+
+        // console.log(tt.getTime() - t.getTime())
+        let program_hash = generate_program_hash(program)
+
+        console.log(program_hash)
+
+              }
+              
+              ).catch(console.error);
+      </script>
+  </body>
+</html>

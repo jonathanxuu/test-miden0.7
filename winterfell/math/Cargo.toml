@@ -30,7 +30,7 @@ categories = [
 ]
 license = "MIT"
 repository = "https://github.com/novifinancial/winterfell"
-resolver = "1"
+resolver = "2"
 
 [package.metadata.docs.rs]
 rustdoc-args = [
@@ -39,25 +39,17 @@ rustdoc-args = [
 ]
 
 [lib]
-bench = false
-
-[[bench]]
-name = "fft"
-harness = false
-
-[[bench]]
-name = "field"
-harness = false
-
-[[bench]]
-name = "polynom"
-harness = false
+crate-type = ["cdylib", "rlib"]
 
 [dependencies.serde]
 version = "1.0.117"
 features = ["derive"]
-# optional = true
 default-features = false
+
+[dependencies.serde_derive]
+version = "1.0.117"
+default-features = false
+optional = true
 
 [dependencies.utils]
 version = "0.6"
@@ -81,8 +73,8 @@ path = "../utils/rand"
 
 [features]
 concurrent = [
-    "utils/concurrent",
-    "std",
+     "utils/concurrent",
+     "std",
 ]
 default = ["std"]
-std = ["utils/std"]
+std = ["utils/std", "serde/std"]

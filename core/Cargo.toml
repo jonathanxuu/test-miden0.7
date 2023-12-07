@@ -12,20 +12,21 @@ edition = "2021"
 rust-version = "1.70"
 
 [lib]
-bench = false
-doctest = false
+crate-type = ["cdylib", "rlib"]
 
 [features]
-default = ["std"]
-std = ["miden-crypto/std", "math/std", "winter-utils/std"]
+default = ["std", "serde/std"]
+concurrent = ["math/concurrent"]
+std = ["miden-crypto/std",  "winter-utils/std", "serde/std"]
 sve = ["miden-crypto/sve", "std"]
 
 [dependencies]
-math = { package = "winter-math", path = "../winterfell/math", version = "0.6", default-features = false }
+math = { package = "winter-math", path = "../winterfell/math", version = "0.6"}
 miden-crypto = { package = "miden-crypto", path = "../crypto", version = "0.7", default-features = false }
 winter-crypto = { package = "winter-crypto", path = "../winterfell/crypto", version = "0.6", default-features = false }
 winter-utils = { package = "winter-utils", path = "../winterfell/utils/core", version = "0.6", default-features = false }
-serde = { version = "1.0.117", default-features = false, features = ["derive"] }
+serde = { version = "1.0.117", default-features = false, features = ["derive"]}
+serde_derive = {version = "1.0.117", default-features = false, optional = true}
 
 [dev-dependencies]
 proptest = "1.1"

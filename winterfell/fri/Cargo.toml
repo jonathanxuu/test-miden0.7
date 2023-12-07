@@ -15,18 +15,11 @@ rust-version = "1.67"
 [lib]
 bench = false
 
-[[bench]]
-name = "prover"
-harness = false
-
-[[bench]]
-name = "folding"
-harness = false
 
 [features]
 concurrent = ["crypto/concurrent", "math/concurrent", "utils/concurrent", "std"]
 default = ["std"]
-std = ["crypto/std", "math/std", "utils/std"]
+std = ["crypto/std", "math/std", "utils/std", "serde/std"]
 
 [dependencies]
 crypto = { version = "0.6", path = "../crypto", package = "winter-crypto", default-features = false }

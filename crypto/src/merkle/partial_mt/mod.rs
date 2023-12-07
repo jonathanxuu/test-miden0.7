@@ -2,8 +2,10 @@ use super::{
     BTreeMap, BTreeSet, InnerNodeInfo, MerkleError, MerklePath, NodeIndex, Rpo256, RpoDigest,
     ValuePath, Vec, Word, EMPTY_WORD,
 };
+use alloc::format;
+use alloc::vec;
 use crate::utils::{
-    format, string::String, vec, word_to_hex, ByteReader, ByteWriter, Deserializable,
+     string::String, word_to_hex, ByteReader, ByteWriter, Deserializable,
     DeserializationError, Serializable,
 };
 use core::fmt;

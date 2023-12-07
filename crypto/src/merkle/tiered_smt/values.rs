@@ -1,5 +1,6 @@
 use super::{get_key_prefix, BTreeMap, LeafNodeIndex, RpoDigest, StarkField, Vec, Word};
-use crate::utils::vec;
+// use crate::utils::vec;
+use alloc::vec;
 use core::{
     cmp::{Ord, Ordering},
     ops::RangeBounds,

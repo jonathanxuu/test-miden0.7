@@ -2,7 +2,12 @@ use super::{
     BTreeMap, BTreeSet, EmptySubtreeRoots, InnerNodeInfo, MerkleError, MerklePath, NodeIndex,
     Rpo256, RpoDigest, StarkField, Vec, Word,
 };
-use crate::utils::vec;
+use alloc::vec;
+
+// #[cfg(feature = "std")]
+// pub use std::{format, vec};
+
+// use crate::utils::collections::vec;
 use core::{cmp, ops::Deref};
 
 mod nodes;

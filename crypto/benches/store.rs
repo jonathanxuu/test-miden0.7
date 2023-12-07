@@ -6,6 +6,7 @@ use rand_utils::{rand_array, rand_value};
 
 /// Since MerkleTree can only be created when a power-of-two number of elements is used, the sample
 /// sizes are limited to that.
+/// 
 static BATCH_SIZES: [usize; 3] = [2usize.pow(4), 2usize.pow(7), 2usize.pow(10)];
 
 /// Generates a random `RpoDigest`.

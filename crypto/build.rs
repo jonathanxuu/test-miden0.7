@@ -1,5 +1,5 @@
 fn main() {
-    // #[cfg(feature = "std")]
+    #[cfg(feature = "std")]
     compile_rpo_falcon();
 
     #[cfg(all(target_feature = "sve", feature = "sve"))]

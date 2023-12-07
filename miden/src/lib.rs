@@ -3,7 +3,9 @@
 
 // EXPORTS
 // ================================================================================================
-
+use crate::utils::collections::Vec;
+use assembly::utils::string::ToString;
+use crate::utils::string::String;
 pub use assembly::{
     ast::{ModuleAst, ProgramAst},
     Assembler, AssemblyError, ParsingError,
@@ -122,4 +124,10 @@ pub fn convert_stackinputs(stack_init: String, advice_tape: String) -> NormalInp
     };
 
     return inputs;
+}
+
+
+#[wasm_bindgen]
+pub fn init_panic_hook() {
+    console_error_panic_hook::set_once();
 }

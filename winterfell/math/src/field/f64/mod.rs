@@ -53,6 +53,7 @@ const ELEMENT_BYTES: usize = core::mem::size_of::<u64>();
 /// The backing type is `u64` but the internal values are always in the range [0, M).
 // #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 // #[cfg_attr(feature = "serde", serde(from = "u64", into = "u64"))]
+
 #[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct BaseElement(u64);
 

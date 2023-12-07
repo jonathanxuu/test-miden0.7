@@ -14,10 +14,6 @@ rust-version = "1.70"
 [lib]
 crate-type = ["cdylib", "rlib"]
 
-[[test]]
-name = "miden"
-path = "tests/integration/main.rs"
-
 [features]
 concurrent = ["prover/concurrent", "std"]
 default = ["std", "serde_json/std"]
@@ -38,7 +34,7 @@ rustyline = { version = "12.0", default-features = false, optional = true }
 
 serde = { version = "1.0.117", default-features = false, features = ["derive"] }
 serde_derive = {version = "1.0.117", default-features = false, optional = true}
-serde_json = {version = "1.0.59", features = ["std"], default-features = false, optional = true }
+serde_json = {version = "1.0.59", features = ["std"], default-features = false }
 stdlib = { package = "miden-stdlib", path = "../stdlib", version = "0.6", default-features = false }
 verifier = { package = "miden-verifier", path = "../verifier", version = "0.7", default-features = false }
 wasm-bindgen = "0.2.83"
@@ -56,8 +52,6 @@ test-utils = { package = "miden-test-utils", path = "../test-utils" }
 vm-core = { package = "miden-core", path = "../core", version = "0.7" }
 winter-fri = { package = "winter-fri", path = "../winterfell/fri", version = "0.6" }
 
-[target.'cfg(target_arch = "wasm32")']
-rustflags = ["-C", "linker=llvm-lld"]
 
 [package.metadata.wasm-pack.profile.release]
 # `wasm-opt` has some problems on linux, see

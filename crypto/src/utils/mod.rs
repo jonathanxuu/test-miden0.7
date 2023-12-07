@@ -3,8 +3,8 @@
 use super::{utils::string::String, Word};
 use core::fmt::{self, Display, Write};
 
-#[cfg(not(feature = "std"))]
-pub use alloc::{format, vec};
+// #[cfg(not(feature = "std"))]
+// pub use core::alloc::{format, vec};
 
 #[cfg(feature = "std")]
 pub use std::{format, vec};
